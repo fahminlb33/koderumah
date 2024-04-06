@@ -1,35 +1,47 @@
 import type { MetaFunction } from "@remix-run/cloudflare";
+import { LoaderFunctionArgs } from "@remix-run/cloudflare";
+import { Link, Outlet, json } from "@remix-run/react";
+import { Button } from "~/components/ui/button";
+import { PageActions, PageHeader, PageHeaderDescription, PageHeaderHeading } from "~/components/ui/page-header";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "New Remix App" },
+    { title: "KodeRumah" },
     {
       name: "description",
-      content: "Welcome to Remix! Using Vite and Cloudflare!",
+      content: "Pelajari dan analisa properti yang ada di sekitar Anda",
     },
   ];
 };
 
 export default function Index() {
   return (
-    <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
-      <h1>Welcome to Remix (with Vite and Cloudflare)</h1>
-      <ul>
-        <li>
-          <a
-            target="_blank"
-            href="https://developers.cloudflare.com/pages/framework-guides/deploy-a-remix-site/"
-            rel="noreferrer"
-          >
-            Cloudflare Pages Docs - Remix guide
-          </a>
-        </li>
-        <li>
-          <a target="_blank" href="https://remix.run/docs" rel="noreferrer">
-            Remix Docs
-          </a>
-        </li>
-      </ul>
+    <div className="container relative">
+
+      <PageHeader className="max-w-3xl h-full">
+        <PageHeaderHeading className="text-balance">
+          Selamat Datang Di Kode Rumah
+        </PageHeaderHeading>
+        <PageHeaderDescription>
+          Pelajari dan analisa properti yang ada di sekitar Anda
+        </PageHeaderDescription>
+        <PageActions>
+          <Button asChild>
+            <Link to="app" unstable_viewTransition>Mulai</Link>
+          </Button>
+          <Button asChild variant="outline">
+            <a
+              href="https://github.com/fahminlb/koderumah"
+              target="_blank"
+            >
+              Buka di GitHub
+            </a>
+          </Button>
+        </PageActions>
+      </PageHeader>
+      <section id="blocks" className="grid scroll-mt-24 gap-24 lg:gap-48">
+        <Outlet />
+      </section>
     </div>
   );
 }
