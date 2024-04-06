@@ -1,0 +1,9 @@
+{
+  "name": "koderumah",
+  "version": "1.0.0",
+  "description": "",
+  "license": "Apache 2.0",
+  "workspaces": ["./backend", "./frontend"],
+  "scripts": {
+  }
+}
