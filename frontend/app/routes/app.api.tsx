@@ -1,6 +1,6 @@
 import type { MetaFunction } from "@remix-run/cloudflare";
 import { Link, Outlet } from "@remix-run/react";
-import { MainHeader } from "~/components/ui/shell-header";
+import { TitleBar } from "~/components/ui/shell-header";
 import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from "~/components/ui/resizable";
 
 export const meta: MetaFunction = () => {
@@ -28,7 +28,7 @@ const ApiList = [
 export default function Index() {
     return (
         <>
-            <MainHeader title={"API"} />
+            <TitleBar title={"API"} />
             <ResizablePanelGroup direction="horizontal" className="flex-1 gap-4 overflow-auto p-4">
                 <ResizablePanel defaultSize={4} className="bg-white border border-gray-200 rounded-lg shadow-sm">
 

@@ -1,5 +1,5 @@
 import type { MetaFunction } from "@remix-run/cloudflare";
-import { MainHeader } from "~/components/ui/shell-header";
+import { TitleBar } from "~/components/ui/shell-header";
 
 export const meta: MetaFunction = () => {
     return [

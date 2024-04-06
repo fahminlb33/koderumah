@@ -2,7 +2,7 @@ import type { MetaFunction } from "@remix-run/cloudflare";
 import { Settings } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import { Drawer, DrawerContent, DrawerDescription, DrawerHeader, DrawerTitle, DrawerTrigger } from "~/components/ui/drawer";
-import { MainHeader } from "~/components/ui/shell-header";
+import { TitleBar } from "~/components/ui/shell-header";
 import { ChatSettings } from "../components/modules/chat/ChatSettingDrawer";
 import { ChatboxSection } from "../components/modules/chat/ChatboxSection";
 
@@ -38,7 +38,7 @@ export default function Index() {
   </Drawer>;
 
   return (<>
-    <MainHeader title={"Chat"} action={
+    <TitleBar title={"Chat"} action={
       settingsDrawer
     } />
     <main className="grid flex-1 gap-4 overflow-auto p-4 md:grid-cols-2 lg:grid-cols-3">

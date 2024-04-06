@@ -58,6 +58,7 @@
     @apply bg-background text-foreground;
   }
 }
+
 @keyframes fade-in {
   from {
     opacity: 0;
@@ -97,6 +98,19 @@
 ::view-transition-old(sidebar) {
   animation: none;
 }
+
 ::view-transition-new(sidebar) {
   animation: none;
+}
+
+
+.title-bar {
+  user-select: none;
+  -webkit-user-drag: auto ;
+  left: env(titlebar-area-x, 0);
+  top: env(titlebar-area-y, 0);
+  /* height: env(titlebar-area-height, 53px); */
+  /* width: env(titlebar-area-width, 100%); */
+  -webkit-app-region: drag;
+
 }

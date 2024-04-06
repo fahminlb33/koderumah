@@ -1,0 +1,11 @@
+{
+    "name": "KodeRumah",
+    "short_name": "KodeRumah",
+    "lang": "en",
+    "start_url": "/",
+    "scope": "/",
+    "display_override": [
+        "window-controls-overlay"
+    ],
+    "theme_color": "#fbfdf7"
+}

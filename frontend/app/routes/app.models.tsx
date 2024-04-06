@@ -1,5 +1,5 @@
 import type { MetaFunction } from "@remix-run/cloudflare";
-import { MainHeader } from "~/components/ui/shell-header";
+import { TitleBar } from "~/components/ui/shell-header";
 
 export const meta: MetaFunction = () => {
     return [
@@ -15,7 +15,7 @@ export const meta: MetaFunction = () => {
 export default function Index() {
     return (
         <>
-            <MainHeader title={"Models"} />
+            <TitleBar title={"Models"} />
 
             <div className="p-4"> 
                 <p className="text-sm text-gray-500">
