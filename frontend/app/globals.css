@@ -1,0 +1,116 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 83 54% 98%;
+    --foreground: 83 58% 0%;
+    --muted: 83 39% 85%;
+    --muted-foreground: 83 12% 38%;
+    --popover: 83 54% 98%;
+    --popover-foreground: 83 58% 0%;
+    --card: 83 54% 97%;
+    --card-foreground: 0 0% 0%;
+    --border: 83 13% 91%;
+    --input: 83 13% 91%;
+    --primary: 83 100% 36%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 83 16% 85%;
+    --secondary-foreground: 83 16% 25%;
+    --accent: 83 16% 85%;
+    --accent-foreground: 83 16% 25%;
+    --destructive: 4 100% 29%;
+    --destructive-foreground: 4 100% 89%;
+    --ring: 83 100% 36%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 83 34% 0%;
+    --foreground: 83 14% 98%;
+    --muted: 0 39% 15%;
+    --muted-foreground: 0 12% 62%;
+    --popover: 83 34% 0%;
+    --popover-foreground: 83 14% 98%;
+    --card: 0 0% 1%;
+    --card-foreground: 83 14% 99%;
+    --border: 83 13% 10%;
+    --input: 83 13% 10%;
+    --primary: 83 100% 36%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 0 0% 13%;
+    --secondary-foreground: 0 0% 73%;
+    --accent: 0 0% 13%;
+    --accent-foreground: 0 0% 73%;
+    --destructive: 4 100% 59%;
+    --destructive-foreground: 0 0% 100%;
+    --ring: 83 100% 36%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes slide-from-right {
+  from {
+    transform: translateX(20px);
+  }
+}
+
+@keyframes slide-to-left {
+  to {
+    transform: translateX(-20px);
+  }
+}
+
+::view-transition-old(main-page-title) {
+  animation: 90ms cubic-bezier(0.4, 0, 1, 1) both fade-out,
+    300ms cubic-bezier(0.4, 0, 0.2, 1) both slide-to-left;
+}
+
+::view-transition-new(main-page-title) {
+  animation: 210ms cubic-bezier(0, 0, 0.2, 1) 90ms both fade-in,
+    300ms cubic-bezier(0.4, 0, 0.2, 1) both slide-from-right;
+}
+
+/* turn off viewTransition for sidebar */
+
+::view-transition-old(sidebar) {
+  animation: none;
+}
+
+::view-transition-new(sidebar) {
+  animation: none;
+}
+
+
+.title-bar {
+  user-select: none;
+  -webkit-user-drag: auto ;
+  left: env(titlebar-area-x, 0);
+  top: env(titlebar-area-y, 0);
+  /* height: env(titlebar-area-height, 53px); */
+  /* width: env(titlebar-area-width, 100%); */
+  -webkit-app-region: drag;
+
+}
