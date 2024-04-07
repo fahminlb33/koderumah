@@ -9,7 +9,7 @@ export const meta: MetaFunction = () => {
     { title: "KodeRumah" },
     {
       name: "description",
-      content: "Pelajari dan analisa properti yang ada di sekitar Anda",
+      content: "Analyse and learn about properties around you",
     },
   ];
 };
@@ -20,21 +20,21 @@ export default function Index() {
 
       <PageHeader className="max-w-3xl h-full">
         <PageHeaderHeading className="text-balance">
-          Selamat Datang Di Kode Rumah
+          Welcome to KodeRumah
         </PageHeaderHeading>
         <PageHeaderDescription>
-          Pelajari dan analisa properti yang ada di sekitar Anda
+          Analyse and learn about properties around you
         </PageHeaderDescription>
         <PageActions>
           <Button asChild>
-            <Link to="app" unstable_viewTransition>Mulai</Link>
+            <Link to="app" unstable_viewTransition>Start</Link>
           </Button>
           <Button asChild variant="outline">
             <a
-              href="https://github.com/fahminlb/koderumah"
+              href="https://github.com/fahminlb33/koderumah"
               target="_blank"
             >
-              Buka di GitHub
+              GitHub
             </a>
           </Button>
         </PageActions>
