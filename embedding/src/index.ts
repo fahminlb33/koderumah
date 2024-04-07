@@ -2,7 +2,7 @@ import zod from "zod";
 import * as jpeg from "jpeg-js";
 import * as tf from '@tensorflow/tfjs';
 
-import { getLogger } from "shared/logging"
+import { Logger } from "shared/logging"
 
 export interface Env {
 	SERVICE_NAME: string;
@@ -45,7 +45,7 @@ const requestSchema = zod.object({
 
 export default {
 	async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
-		const logger = getLogger(env.SERVICE_NAME, "fetch");
+		const logger = new Logger(env.SERVICE_NAME).scoped("fetch");
 
 		// check request
 		const reqBody = requestSchema.safeParse(await request.json());
