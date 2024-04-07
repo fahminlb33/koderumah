@@ -13,20 +13,17 @@ import {
   TooltipContent,
   TooltipTrigger
 } from "~/components/ui/tooltip";
+import { ModeToggle } from "../ui/mode-toggle";
 
 const navItems = [
   { label: "Dashboard", icon: HomeIcon, path: "/app/" },
   { label: "Playground", icon: SquareTerminal, path: "/app/chat" },
-  { label: "Models", icon: Bot, path: "/app/models" },
-  { label: "API", icon: Code2, path: "/app/api" },
-  { label: "Documentation", icon: Book, path: "/app/documentation" },
 ];
 
 
 const navFooter = [
   { label: "Settings", icon: Settings2, path: "/app/settings" },
   { label: "Help", icon: LifeBuoy, path: "/app/help" },
-  { label: "Account", icon: SquareUser, path: "/app/account" },
 ];
 export function Sidebar() {
   return <aside className="inset-y fixed  left-0 z-20 flex h-full flex-col border-r" style={{
@@ -87,6 +84,7 @@ export function Sidebar() {
           </Tooltip>
         ))
       }
+      <ModeToggle />
     </nav>
   </aside>;
 }

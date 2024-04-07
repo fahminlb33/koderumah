@@ -7,5 +7,6 @@
     "display_override": [
         "window-controls-overlay"
     ],
-    "theme_color": "#fbfdf7"
+    "theme_color": "#fbfdf70a",
+    "background_color": "#fbfdf70a"
 }
