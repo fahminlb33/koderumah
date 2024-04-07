@@ -1,32 +1,23 @@
-/**
- * Welcome to Cloudflare Workers! This is your first worker.
- *
- * - Run `npm run dev` in your terminal to start a development server
- * - Open a browser tab at http://localhost:8787/ to see your worker in action
- * - Run `npm run deploy` to publish your worker
- *
- * Learn more at https://developers.cloudflare.com/workers/
- */
+import { AutoRouter } from 'itty-router';
 
-export interface Env {
-	// Example binding to KV. Learn more at https://developers.cloudflare.com/workers/runtime-apis/kv/
-	// MY_KV_NAMESPACE: KVNamespace;
-	//
-	// Example binding to Durable Object. Learn more at https://developers.cloudflare.com/workers/runtime-apis/durable-objects/
-	// MY_DURABLE_OBJECT: DurableObjectNamespace;
-	//
-	// Example binding to R2. Learn more at https://developers.cloudflare.com/workers/runtime-apis/r2/
-	// MY_BUCKET: R2Bucket;
-	//
-	// Example binding to a Service. Learn more at https://developers.cloudflare.com/workers/runtime-apis/service-bindings/
-	// MY_SERVICE: Fetcher;
-	//
-	// Example binding to a Queue. Learn more at https://developers.cloudflare.com/queues/javascript-apis/
-	// MY_QUEUE: Queue;
-}
+import { Env } from './types';
+import { HousesModule } from "./routes/house";
+import { SessionModule } from "./routes/session";
+import { CompletionModule } from "./routes/completion";
 
-export default {
-	async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
-		return new Response('Hello World!');
-	},
-};
+const router = AutoRouter()
+    // House Data Management
+    .post("/houses/:id/images", (req, env: Env) => new HousesModule(env).addImage(req))
+    .get("/houses/:id", (req, env: Env) => new HousesModule(env).get(req))
+    .post("/houses", (req, env: Env) => new HousesModule(env).create(req))
+    
+    // Session Management
+    .get("/chat/sessions/:id", (req, env: Env) => new SessionModule(env).get(req))
+    .post("/chat/sessions", (req, env: Env) => new SessionModule(env).create(req))
+
+    // Chat Completion
+    .post("/chat/completion/:sessionId/text", (req, env: Env) => new CompletionModule(env).textCompletion(req))
+    .post("/chat/completion/:sessionId/image", (req, env: Env) => new CompletionModule(env).imageCompletion(req))
+
+
+export default { ...router };
