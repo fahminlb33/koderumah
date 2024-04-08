@@ -7,6 +7,8 @@ import { Logger } from "shared/logging"
 export interface Env {
 	SERVICE_NAME: string;
 	EMBEDDING_MODEL_URL: string;
+
+	IMAGE_BUCKET: R2Bucket;
 }
 
 // set backend to CPU
@@ -40,7 +42,8 @@ function preprocess(imageTensor: tf.Tensor<tf.Rank>) {
 }
 
 const requestSchema = zod.object({
-	imageUrl: zod.string().url(),
+	imageUrl: zod.string().url().optional(),
+	objectKey: zod.string().optional(),
 })
 
 export default {
@@ -54,15 +57,33 @@ export default {
 			return new Response(reqBody.error.message, { status: 400 });
 		}
 
+		// check if we have what we need
+		if (!reqBody.data.objectKey && !reqBody.data.imageUrl) {
+			logger.error("imageUrl or objectKey must be present");
+			return new Response("imageUrl or objectKey must be present", { status: 400 });
+		}
+
 		// load model
 		logger.info("Downloading model...")
 		const model = await tf.loadGraphModel(env.EMBEDDING_MODEL_URL, { fromTFHub: true });
 
-		// download image
-		logger.info("Downloading image...")
-		const imgRes = await fetch(reqBody.data.imageUrl);
-		const img = await imgRes.arrayBuffer();
-
+		// get the image
+		let img: ArrayBuffer;
+		if (reqBody.data.imageUrl) {
+			logger.info("Downloading image...");
+			const imgRes = await fetch(reqBody.data.imageUrl);
+			img = await imgRes.arrayBuffer();
+		} else {
+			logger.info("Retrieving image...");
+			const imgRes = await env.IMAGE_BUCKET.get(reqBody.data.objectKey!);
+			if (!imgRes) {
+				logger.error("Image not found");
+				return new Response("Image not found", { status: 404 });
+			}
+			
+			img = await imgRes.arrayBuffer();
+		}
+		
 		// decode image
 		logger.info("Decoding image...")
 		const imgDecoded = jpeg.decode(img, { useTArray: true, formatAsRGBA: false, maxMemoryUsageInMB: 50 });

@@ -6,5 +6,10 @@ compatibility_flags = ["nodejs_compat"]
 # Variable bindings. These are arbitrary, plaintext strings (similar to environment variables)
 # Note: Use secrets to store sensitive data.
 # Docs: https://developers.cloudflare.com/workers/wrangler/configuration/#environment-variables
-[vars]
-EMBEDDING_MODEL_URL = "https://www.kaggle.com/models/google/mobilenet-v3/frameworks/TfJs/variations/large-075-224-feature-vector/versions/1"
+vars.EMBEDDING_MODEL_URL = "https://www.kaggle.com/models/google/mobilenet-v3/frameworks/TfJs/variations/large-075-224-feature-vector/versions/1"
+
+# Bind an R2 Bucket. Use R2 to store arbitrarily large blobs of data, such as files.
+# Docs: https://developers.cloudflare.com/workers/wrangler/configuration/#r2-buckets
+r2_buckets = [
+    { binding = "IMAGE_BUCKET", bucket_name = "rumah-images", preview_bucket_name = "rumah-images-preview" }
+]
