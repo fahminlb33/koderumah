@@ -88,8 +88,6 @@ export class HousesModule {
 
         const house = houses[0];
         const images = await db.select().from(HouseImage).where(eq(HouseImage.house_id, house.id));
-        console.log(house)
-        console.log(images)
 
         Object.assign(house, { images: images });
 
@@ -115,7 +113,7 @@ export class HousesModule {
 
         // get image embedding
         const imageAgent = new ImageAgent(this._env);
-        const embeddings = await imageAgent.embed(url);
+        const embeddings = await imageAgent.embed(id + ".jpg");
 
         logger.info("Inserting image embedding to index...");
 
@@ -128,7 +126,7 @@ export class HousesModule {
         }).returning();
 
         // save to vector DB
-        const entry = { id: crypto.randomUUID(), values: embeddings, metadata: { house_id: body.data.id } };
+        const entry = { id: id, values: embeddings, metadata: { house_id: body.data.id } };
         await this._env.VECTORIZE_IMAGE_INDEX.insert([entry]);
 
         return Response.json(row[0]);
