@@ -22,7 +22,7 @@ export class SessionModule {
 
     constructor(env: Env) {
         this._env = env
-        this._logger = new Logger("HousesModule");
+        this._logger = new Logger("SessionModule");
     }
 
     async create(req: IRequest) {
