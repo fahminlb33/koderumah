@@ -3,7 +3,7 @@ export interface Env {
 	IMAGE_BUCKET_PUBLIC_ENDPOINT: string;
 
 	AI: any;
-	
+
 	DB: D1Database;
 
 	IMAGE_BUCKET: R2Bucket;
