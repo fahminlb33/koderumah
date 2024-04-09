@@ -12,16 +12,16 @@ export const meta: MetaFunction = () => {
     ];
 };
 
+export const handle = {
+    breadcrumb: () => "Help",
+};
+
 export default function Index() {
     return (
-        <>
-            <TitleBar title={"Help"} />
-
-            <div className="p-4">
-                <p className="text-sm text-gray-500">
-                    read Help
-                </p>
-            </div>
-        </>
+        <div className="p-4">
+            <p className="text-sm text-gray-500">
+                Here's some help
+            </p>
+        </div>
     );
 }

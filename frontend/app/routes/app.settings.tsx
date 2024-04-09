@@ -12,16 +12,16 @@ export const meta: MetaFunction = () => {
     ];
 };
 
+export const handle = {
+    breadcrumb: () => "Settings",
+};
+
 export default function Index() {
     return (
-        <>
-            <TitleBar title={"Settings"} />
-
-            <div className="p-4"> 
-                <p className="text-sm text-gray-500">
-                    Manage your settings
-                </p>
-            </div>
-        </>
+        <div className="p-4">
+            <p className="text-sm text-gray-500">
+                Manage your settings
+            </p>
+        </div>
     );
 }
