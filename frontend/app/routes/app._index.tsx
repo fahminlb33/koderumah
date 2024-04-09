@@ -124,12 +124,16 @@ const cardItems = [
     }
 ];
 
+
+export const handle = {
+    breadcrumb: () => "Dashboard",
+};
+
 export default function Index() {
-    return (<>
-        <TitleBar title={"Dashboard"} />
+    return (
         <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
             <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
-                <Link to="/app/chat/new" className="hidden lg:block">
+                <Link to="/app/chat/new" className="block">
                     <Card className="bg-primary text-white" >
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                             <CardTitle className="text-xl font-medium">
@@ -147,13 +151,13 @@ export default function Index() {
                         </CardContent>
                     </Card>
                 </Link>
-            
+
             </div>
             <div className="grid gap-4 md:gap-8 lg:grid-cols-3 md:grid-cols-2">
                 <TransactionSchema />
                 <SalesSection />
             </div>
         </main>
-    </>
+
     );
 }

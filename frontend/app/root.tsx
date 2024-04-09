@@ -95,7 +95,7 @@ export function ErrorBoundary() {
   return (
     <>
       <h1>Error!</h1>
-      <p>{error?.message ?? "Unknown error"}</p>
+      <p>{JSON.stringify(error) ?? "Unknown error"}</p>
     </>
   );
 }

@@ -1,4 +1,4 @@
-import { CornerDownLeft, Mic, Paperclip } from "lucide-react";
+import { CornerDownLeft, Paperclip } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import { Label } from "~/components/ui/label";
 import { Textarea } from "~/components/ui/textarea";
@@ -6,7 +6,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "~/components/ui/tooltip
 
 export function InputForm() {
   return <form
-    className="relative overflow-hidden rounded-lg border bg-background focus-within:ring-1 focus-within:ring-ring" x-chunk="dashboard-03-chunk-1"
+    className="sticky bottom-0 left-0 right-0 rounded-lg border bg-background focus-within:ring-1 focus-within:ring-ring"
   >
     <Label htmlFor="message" className="sr-only">
       Message
@@ -25,15 +25,7 @@ export function InputForm() {
         </TooltipTrigger>
         <TooltipContent side="top">Attach File</TooltipContent>
       </Tooltip>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <Button variant="ghost" size="icon">
-            <Mic className="size-4" />
-            <span className="sr-only">Use Microphone</span>
-          </Button>
-        </TooltipTrigger>
-        <TooltipContent side="top">Use Microphone</TooltipContent>
-      </Tooltip>
+
       <Button type="submit" size="sm" className="ml-auto gap-1.5">
         Send Message
         <CornerDownLeft className="size-3.5" />

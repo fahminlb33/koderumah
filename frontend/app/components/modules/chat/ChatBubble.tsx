@@ -1,5 +1,6 @@
 import { Copy } from "lucide-react";
 import { Button } from "~/components/ui/button";
+import dayjs from "dayjs";
 
 export function ChatBubble({ message }: Readonly<{ message: any; }>) {
 
@@ -11,11 +12,11 @@ export function ChatBubble({ message }: Readonly<{ message: any; }>) {
         {message.message}
       </div>
       <div className="flex gap-1 items-center">
-        <p className="text-sm text-muted-foreground ">{message.timestamp}</p>
+        <p className="text-sm text-muted-foreground ">{dayjs(message.timestamp).format("HH:mm")}</p>
 
         {message.user === "bot" && (
           <Button variant="ghost" size="icon" className="text-muted-foreground">
-            <Copy className="size-3" />
+            <Copy className="size-2" />
           </Button>
         )}
       </div>

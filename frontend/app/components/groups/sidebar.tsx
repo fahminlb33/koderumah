@@ -1,10 +1,8 @@
 import { Link } from "@remix-run/react";
 import {
-  Book,
-  Bot,
-  Code2, HomeIcon, LifeBuoy, Settings2,
+  BuildingIcon,
+  HomeIcon, LifeBuoy, Settings2,
   SquareTerminal,
-  SquareUser,
   Triangle
 } from "lucide-react";
 import { Button } from "~/components/ui/button";
@@ -26,13 +24,13 @@ const navFooter = [
   { label: "Help", icon: LifeBuoy, path: "/app/help" },
 ];
 export function Sidebar() {
-  return <aside className="inset-y fixed  left-0 z-20 flex h-full flex-col border-r" style={{
+  return <aside className="inset-y fixed col-start-1 left-0 z-20 flex h-full flex-col border-r" style={{
     viewTimelineName: "sidebar",
   }}>
     <div className="border-b p-2">
       <Button variant="outline" size="icon" aria-label="Home" asChild>
         <Link to="/">
-          <Triangle className="size-5 fill-foreground" />
+          <BuildingIcon className="size-5 " />
         </Link>
       </Button>
     </div>
