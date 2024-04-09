@@ -18,6 +18,10 @@ export class Logger {
         return new Date().toLocaleString()
     }
 
+    debug(message?: any, ...args: any[]) {
+        this.log("DEBUG", message, ...args)
+    }
+
     info(message?: any, ...args: any[]) {
         this.log("INFO", message, ...args)
     }

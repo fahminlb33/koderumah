@@ -1,7 +1,7 @@
 import zod from 'zod';
 import { IRequest } from 'itty-router';
 import { drizzle } from 'drizzle-orm/d1';
-import { eq } from 'drizzle-orm';
+import { eq, inArray } from 'drizzle-orm';
 
 import { Env } from '../types';
 import { Logger } from 'shared/logging';
@@ -14,6 +14,17 @@ const CreateRequest = zod.object({
 const GetRequest = zod.object({
 	id: zod.string().uuid(),
 });
+
+type GetResponseDTO = {
+	role: string;
+	content: string;
+	createdAt: string;
+	houses: {
+		id: string;
+		content: string;
+		images: string[];
+	}[];
+};
 
 export class SessionModule {
 	private _env: Env;
@@ -61,14 +72,37 @@ export class SessionModule {
 
 		// find from DB
 		const db = drizzle(this._env.DB);
-		const rows = await db
+		const chats = await db
 			.select()
 			.from(Chat)
-			.leftJoin(ChatCitation, eq(Chat.id, ChatCitation.chat_id))
-			.leftJoin(House, eq(House.id, ChatCitation.house_id))
-			.leftJoin(HouseImage, eq(HouseImage.house_id, House.id))
 			.where(eq(Chat.session_id, body.data.id));
 
-		return Response.json(rows);
+		const houses = await db
+			.select()
+			.from(House)
+			.leftJoin(ChatCitation, eq(ChatCitation.house_id, House.id))
+			.where(inArray(ChatCitation.chat_id, chats.map(x => x.id)));
+
+		const images = await db
+			.select()
+			.from(HouseImage)
+			.where(inArray(HouseImage.house_id, houses.map(x => x.houses.id)));
+
+		// project data
+		const dto: GetResponseDTO[] = [];
+		for (const chat of chats) {
+			dto.push({
+				role: chat.role!,
+				content: chat.content!,
+				createdAt: chat.createdAt!,
+				houses: houses.filter(x => x.chat_citations?.chat_id === chat.id).map(x => ({
+					id: x.houses.id,
+					content: x.houses.content,
+					images: images.filter(y => y.house_id === x.houses.id).map(y => y.url)
+				}))
+			})
+		}
+
+		return Response.json(dto);
 	}
 }

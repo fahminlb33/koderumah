@@ -16,7 +16,7 @@ ai = { binding = "AI" }
 # Bind a D1 database. D1 is Cloudflare’s native serverless SQL database.
 # Docs: https://developers.cloudflare.com/workers/wrangler/configuration/#d1-databases
 d1_databases = [
-    { binding = "DB", database_name = "rumah-db", database_id = "3d3e29fa-769c-4e30-908d-df65171b8319" }
+    { binding = "DB", database_name = "rumah-db", database_id = "3d3e29fa-769c-4e30-908d-df65171b8319", preview_database_id = "3d3e29fa-769c-4e30-908d-df65171b8319" }
 ]
 
 # Bind an R2 Bucket. Use R2 to store arbitrarily large blobs of data, such as files.
