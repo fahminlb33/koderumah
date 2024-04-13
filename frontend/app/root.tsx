@@ -16,13 +16,20 @@ import {
 import { PreventFlashOnWrongTheme, Theme, ThemeProvider, useTheme } from "remix-themes";
 import { TooltipProvider } from "./components/ui/tooltip";
 import { themeSessionResolver } from "./sessions.server";
+import localforage from "localforage";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { getTheme } = await themeSessionResolver(request);
+  localforage.config({
+    name: 'KodeRumahDB',
+    storeName: 'themes',
+  });
   return {
     theme: getTheme(),
   };
 }
+
+
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
@@ -78,24 +85,24 @@ export function App() {
   );
 }
 
-export function ErrorBoundary() {
-  const error = useRouteError() as any;
+// export function ErrorBoundary() {
+//   const error = useRouteError() as any;
 
-  if (isRouteErrorResponse(error)) {
-    return (
-      <>
-        <h1>
-          {error.status} {error.statusText}
-        </h1>
-        <p>{error.data}</p>
-      </>
-    );
-  }
+//   if (isRouteErrorResponse(error)) {
+//     return (
+//       <>
+//         <h1>
+//           {error.status} {error.statusText}
+//         </h1>
+//         <p>{error.data}</p>
+//       </>
+//     );
+//   }
 
-  return (
-    <>
-      <h1>Error!</h1>
-      <p>{JSON.stringify(error) ?? "Unknown error"}</p>
-    </>
-  );
-}
+//   return (
+//     <>
+//       <h1>Error!</h1>
+//       <p>{JSON.stringify(error) ?? "Unknown error"}</p>
+//     </>
+//   );
+// }

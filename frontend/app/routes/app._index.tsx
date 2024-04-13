@@ -1,11 +1,12 @@
 import type { MetaFunction } from "@remix-run/cloudflare";
-import { Link } from "@remix-run/react";
+import { Link, useLoaderData } from "@remix-run/react";
 import { Activity, ArrowUpRight, CreditCard, Plus } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "~/components/ui/card";
 import { TitleBar } from "~/components/ui/shell-header";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "~/components/ui/table";
+import { getChats } from "~/utils/chat-database";
 
 export const meta: MetaFunction = () => {
     return [
@@ -18,7 +19,7 @@ export const meta: MetaFunction = () => {
 };
 
 
-function SalesSection() {
+function FavouriteSection() {
     return (<Card>
         <CardHeader>
             <CardTitle>Your Favourite Recommendation</CardTitle>
@@ -45,7 +46,14 @@ function SalesSection() {
     </Card>);
 }
 
-function TransactionSchema() {
+export async function clientLoader() {
+    const chatItems = await getChats();
+    return { chatItems };
+}
+
+function HistorySection({ items }: {
+    items: { title: string; id: string; }[];
+}) {
     return (<Card className="md:col-span-2">
         <CardHeader className="flex flex-row items-center">
             <div className="grid gap-2">
@@ -55,7 +63,7 @@ function TransactionSchema() {
                 </CardDescription>
             </div>
             <Button asChild size="sm" className="ml-auto gap-1">
-                <Link to="#">
+                <Link to="/app/chat">
                     View All
                     <ArrowUpRight className="h-4 w-4" />
                 </Link>
@@ -75,54 +83,34 @@ function TransactionSchema() {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    <TableRow>
-                        <TableCell className="w-40  ">
-                            2023-06-23
-                        </TableCell>
-                        <TableCell>
-                            <div className="font-medium">House at Depok</div>
-                        </TableCell>
-                        <TableCell>
-                            <Button asChild size="sm" variant="ghost">
-                                <Link to="/app/chat/0af29d" unstable_viewTransition>
-                                    View
-                                </Link>
-                            </Button>
-                        </TableCell>
-                    </TableRow>
-
+                    {
+                        // get last 5 items from the list reversed
+                        items.slice(
+                            -5
+                        ).map((item) => (
+                            <TableRow key={item.id}>
+                                <TableCell className="w-40  ">
+                                    {new Date().toLocaleDateString()}
+                                </TableCell>
+                                <TableCell>
+                                    <div className="font-medium">{item.title}</div>
+                                </TableCell>
+                                <TableCell>
+                                    <Button asChild size="sm" variant="ghost">
+                                        <Link to={`/app/chat/${item.id}`} unstable_viewTransition>
+                                            View
+                                        </Link>
+                                    </Button>
+                                </TableCell>
+                            </TableRow>
+                        ))
+                    }
                 </TableBody>
             </Table>
         </CardContent>
     </Card>);
 }
 
-const cardItems = [
-    // {
-    //     title: 'Total Revenue',
-    //     icon: <DollarSign className="h-4 w-4 text-muted-foreground" />,
-    //     amount: '$45,231.89',
-    //     description: '+20.1% from last month'
-    // },
-    // {
-    //     title: 'Subscriptions',
-    //     icon: <Users className="h-4 w-4 text-muted-foreground" />,
-    //     amount: '+2350',
-    //     description: '+180.1% from last month'
-    // },
-    {
-        title: 'Sales',
-        icon: <CreditCard className="h-4 w-4 text-muted-foreground" />,
-        amount: '+12,234',
-        description: '+19% from last month'
-    },
-    {
-        title: 'Active Now',
-        icon: <Activity className="h-4 w-4 text-muted-foreground" />,
-        amount: '+573',
-        description: '+201 since last hour'
-    }
-];
 
 
 export const handle = {
@@ -130,6 +118,7 @@ export const handle = {
 };
 
 export default function Index() {
+    const { chatItems } = useLoaderData<typeof clientLoader>();
     return (
         <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
             <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
@@ -154,8 +143,8 @@ export default function Index() {
 
             </div>
             <div className="grid gap-4 md:gap-8 lg:grid-cols-3 md:grid-cols-2">
-                <TransactionSchema />
-                <SalesSection />
+                <HistorySection items={chatItems} />
+                <FavouriteSection />
             </div>
         </main>
 
