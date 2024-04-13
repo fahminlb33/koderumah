@@ -1,6 +1,20 @@
 # House Recommendation RAG
 
-House recommendation on CloudFlare AI.
+Retrieval-Augmented Generation (RAG) for house recommendation.
+
+This project uses multiple AI models to perform QnA style house search/recommendation using RAG method. It's a more advanced use case of CloudFlare AI which integrates many CloudFlare services and AI models.
+
+- `@cf/meta/llama-2-7b-chat-int8`
+- `@cf/baai/bge-large-en-v1.5`
+- `@cf/unum/uform-gen2-qwen-500m`
+- [mobilenet_v3](https://www.kaggle.com/models/google/mobilenet-v3/frameworks/tfLite/variations/small-100-224-feature-vector-metadata/versions/1?tfhub-redirect=true) through `@tensorflow/tfjs`
+
+Try here: https://rumah-frontend.pages.dev/
+
+Example propmpts:
+
+- Recommend me a house with 2 bedrooms
+- House near Bojong Gede
 
 ## Requirements
 
