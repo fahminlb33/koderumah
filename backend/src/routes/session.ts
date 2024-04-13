@@ -16,11 +16,14 @@ const GetRequest = zod.object({
 });
 
 type GetResponseDTO = {
+	id: string;
 	role: string;
 	content: string;
 	createdAt: string;
 	houses: {
 		id: string;
+		price: number;
+		address: string;
 		content: string;
 		images: string[];
 	}[];
@@ -92,11 +95,14 @@ export class SessionModule {
 		const dto: GetResponseDTO[] = [];
 		for (const chat of chats) {
 			dto.push({
+				id: chat.id,
 				role: chat.role!,
 				content: chat.content!,
 				createdAt: chat.createdAt!,
 				houses: houses.filter(x => x.chat_citations?.chat_id === chat.id).map(x => ({
 					id: x.houses.id,
+					price: x.houses.price,
+					address: x.houses.address,
 					content: x.houses.content,
 					images: images.filter(y => y.house_id === x.houses.id).map(y => y.url)
 				}))
