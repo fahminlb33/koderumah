@@ -5,8 +5,23 @@ House recommendation on CloudFlare AI.
 ## Requirements
 
 - Node v20.12.0
-- Wrangler v3.0.0
-- CloudFlare Worker Pro Plan (to use Vectorize)
+- npm v10.5.0
+- Wrangler v3.0.0 or newer
+
+You'll need CloudFlare Worker Pro Plan to be able to use Vectorize service which currently are in Beta.
+
+## Tech Stack
+
+- Vite
+- React
+- Radix UI
+- Tailwind CSS
+- zod
+- itty-router
+- jpeg-js
+- @tensorflow/tfjs
+- drizzle-orm
+- CloudFlare services used: Pages, Workers, Workers AI, Vectorize, D1, R2
 
 ## Deployment
 

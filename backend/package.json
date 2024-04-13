@@ -12,6 +12,7 @@
 		"format": "prettier --write ."
 	},
 	"devDependencies": {
+		"@cloudflare/ai": "^1.1.0",
 		"@cloudflare/vitest-pool-workers": "^0.1.0",
 		"@cloudflare/workers-types": "^4.20240405.0",
 		"drizzle-kit": "^0.20.14",
@@ -21,7 +22,6 @@
 		"wrangler": "^3.0.0"
 	},
 	"dependencies": {
-		"@cloudflare/ai": "^1.1.0",
 		"drizzle-orm": "^0.30.7",
 		"itty-router": "^5.0.9",
 		"shared": "file:../shared",
