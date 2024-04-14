@@ -7,7 +7,7 @@ compatibility_flags = ["nodejs_compat"]
 # Note: Use secrets to store sensitive data.
 # Docs: https://developers.cloudflare.com/workers/wrangler/configuration/#environment-variables
 vars.IMAGE_EMBEDDING_ENDPOINT = "https://rumah-embedding.fahminlb338482.workers.dev"
-vars.IMAGE_BUCKET_PUBLIC_ENDPOINT = "https://pub-f709fdd32cd847dc90757b8aeefd88d3.r2.dev" # "https://pub-b765d32d08894109b229f685b6c61ee0.r2.dev"
+vars.IMAGE_BUCKET_PUBLIC_ENDPOINT = "https://pub-b765d32d08894109b229f685b6c61ee0.r2.dev"
 
 # Bind the Workers AI model catalog. Run machine learning models, powered by serverless GPUs, on Cloudflare’s global network
 # Docs: https://developers.cloudflare.com/workers/wrangler/configuration/#workers-ai
