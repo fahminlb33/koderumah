@@ -1,11 +1,23 @@
+import { useRevalidator } from "@remix-run/react";
 import { CornerDownLeft, Paperclip } from "lucide-react";
+import { useCallback, useState } from "react";
 import { Button } from "~/components/ui/button";
 import { Label } from "~/components/ui/label";
 import { Textarea } from "~/components/ui/textarea";
 import { Tooltip, TooltipContent, TooltipTrigger } from "~/components/ui/tooltip";
+import { sendMessages } from "~/domain/services/chat";
 
-export function InputForm() {
+export function InputForm({ id }: { id: string; }) {
+  const [message, setMessage] = useState("");
+  const { revalidate } = useRevalidator();
+  const handleSubmit = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    await sendMessages(id, message);
+    revalidate();
+
+  }, [message]);
   return <form
+    onSubmit={handleSubmit}
     className="sticky bottom-0 left-0 right-0 rounded-lg border bg-background focus-within:ring-1 focus-within:ring-ring"
   >
     <Label htmlFor="message" className="sr-only">
@@ -13,6 +25,8 @@ export function InputForm() {
     </Label>
     <Textarea
       id="message"
+      value={message}
+      onChange={(e) => setMessage(e.target.value)}
       placeholder="Type your message here..."
       className="min-h-12 resize-none border-0 p-3 shadow-none focus-visible:ring-0" />
     <div className="flex items-center p-3 pt-0">
