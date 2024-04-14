@@ -1,11 +1,16 @@
-import { AutoRouter } from 'itty-router';
+import { AutoRouter, cors } from 'itty-router';
 
 import { Env } from './types';
 import { HousesModule } from './routes/house';
 import { SessionModule } from './routes/session';
 import { CompletionModule } from './routes/completion';
 
-const router = AutoRouter()
+// get preflight and corsify pair
+const { preflight, corsify } = cors({
+	origin: ["*"],
+})
+
+const router = AutoRouter({ before: [preflight], finally: [corsify] })
 	// House Data Management
 	.post('/houses/:id/images', (req, env: Env) => new HousesModule(env).addImage(req))
 	.get('/houses/:id', (req, env: Env) => new HousesModule(env).get(req))
