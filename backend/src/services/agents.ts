@@ -7,6 +7,7 @@ const MODEL_REGISTRY = {
 	TEXT_GENERATION: '@cf/meta/llama-2-7b-chat-int8',
 	TEXT_EMBEDDING: '@cf/baai/bge-large-en-v1.5',
 	IMAGE_TO_TEXT: '@cf/unum/uform-gen2-qwen-500m',
+	TEXT_SUMMARIZATION: '@cf/facebook/bart-large-cnn'
 } as const;
 
 export class HouseAgent {
@@ -168,8 +169,13 @@ export class ImageAgent {
 		logger.debug('Running image captioning inference...');
 		const result = await this._ai.run(MODEL_REGISTRY.IMAGE_TO_TEXT, { image: [...new Uint8Array(blob)] });
 
-		logger.debug('Image caption', { caption: result.description });
-		return result.description;
+		logger.debug('Summarize image caption', { caption: result.description });
+		const summarized = await this._ai.run(MODEL_REGISTRY.TEXT_SUMMARIZATION, {
+			input_text: result.description,
+		})
+
+		logger.debug('Image caption', { caption: summarized.summary });
+		return summarized.summary;
 	}
 
 	async embed(objectKey: string): Promise<number[]> {
