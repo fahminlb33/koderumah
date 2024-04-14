@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import { Copy } from "lucide-react";
+import { AspectRatio } from "~/components/ui/aspect-ratio";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "~/components/ui/card";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "~/components/ui/collapsible";
@@ -11,8 +12,13 @@ export function ChatBubble({ chat }: Readonly<{ chat: Chat; }>) {
     <div
       className={`flex gap-4 items-start ${chat.role === "user" ? "flex-row-reverse" : ""}`}
     >
-      <div className="flex flex-col items-start gap-1  max-w-[90%]">
-        <div className={`p-4 rounded-lg ${chat.role === "user" ? "bg-primary text-background" : "bg-background text-foreground"}`}>
+      <div className="flex flex-col items-start gap-2  max-w-[90%]">
+        {
+          chat.imageUrl && (
+            <img className="w-full rounded-md" src={chat.imageUrl} alt={chat.id} />
+          )
+        }
+        <div className={`prose whitespace-pre-line p-4 rounded-lg ${chat.role === "user" ? "bg-primary text-background" : "bg-background text-foreground"}`}>
           {chat.content}
         </div>
         <div className="flex gap-1 items-center">
@@ -58,7 +64,7 @@ const HouseCard = ({ chat }: { chat: Chat; }) => {
           // const title = parseHouseInfo(content.slice(0, content.indexOf(',.')));
           // const description = content.slice(content.indexOf(',.') + 2);
           return (
-            <Card key={house.id} className="w-20%">
+            <Card key={house.id} className="w-20% mb-4">
               <CardHeader>
                 <img className="w-full rounded-md" src={house.images[0]} alt={house?.address + house.id} />
               </CardHeader>

@@ -1,9 +1,8 @@
 import type { MetaFunction } from "@remix-run/cloudflare";
 import { Outlet, useMatches } from "@remix-run/react";
-import { Fragment, useMemo } from "react";
+import { Fragment, PropsWithChildren, useMemo } from "react";
 import { Sidebar } from "~/components/groups/sidebar";
 import { BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator } from "~/components/ui/breadcrumb";
-import { ScrollArea } from "~/components/ui/scroll-area";
 import { TitleBar } from "~/components/ui/shell-header";
 
 export const meta: MetaFunction = () => {
@@ -16,7 +15,7 @@ export const meta: MetaFunction = () => {
     ];
 };
 
-export default function Layout() {
+export default function Layout({ children }: PropsWithChildren) {
 
     const matches = useMatches();
 
@@ -46,8 +45,7 @@ export default function Layout() {
                 ))} />
             </div>
 
-            <Outlet />
-
+            {children}
         </div>
     );
 }

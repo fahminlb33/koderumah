@@ -14,14 +14,14 @@ import {
 import { ModeToggle } from "../ui/mode-toggle";
 
 const navItems = [
-  { label: "Dashboard", icon: HomeIcon, path: "/app/" },
-  { label: "Playground", icon: SquareTerminal, path: "/app/chat" },
+  { label: "Dashboard", icon: HomeIcon, path: "/" },
+  { label: "Playground", icon: SquareTerminal, path: "/chat" },
 ];
 
 
 const navFooter = [
-  { label: "Settings", icon: Settings2, path: "/app/settings" },
-  { label: "Help", icon: LifeBuoy, path: "/app/help" },
+  { label: "Settings", icon: Settings2, path: "/settings" },
+  { label: "Help", icon: LifeBuoy, path: "/help" },
 ];
 export function Sidebar() {
   return <aside className="inset-y fixed col-start-1 left-0 z-20 flex h-full flex-col border-r" style={{
