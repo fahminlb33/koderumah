@@ -6,9 +6,7 @@ import { SessionModule } from './routes/session';
 import { CompletionModule } from './routes/completion';
 
 // get preflight and corsify pair
-const { preflight, corsify } = cors({
-	origin: ["*"],
-})
+const { preflight, corsify } = cors()
 
 const router = AutoRouter({ before: [preflight], finally: [corsify] })
 	// House Data Management
