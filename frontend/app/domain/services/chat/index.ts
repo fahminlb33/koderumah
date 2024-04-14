@@ -8,6 +8,7 @@ export interface Chat {
     role: string;
     content: string;
     createdAt: string;
+    imageUrl?: string;
     houses: {
         id: string;
         price: string;
@@ -57,14 +58,18 @@ const sendMessages = async (id: string, message: string) => {
 };
 
 const sendAttachment = async (id: string, attachment: File) => {
-    const url = new URL(`${apiCompletionUrl}/${id}/image`, baseUrl);
-    const formData = new FormData();
-    formData.append('file', attachment);
+    const url = new URL(`${apiCompletionUrl}/${id}/image`, baseUrl); 
+    console.log("Sending attachment");
+    const buffer = await attachment.arrayBuffer();
+    console.log("Buffer length: ", buffer.byteLength);
+    
     const response = await fetch(url, {
         method: 'POST',
-        body: formData
-    });
-    return response.json();
+        body: buffer
+    }).then(res => res.json());
+
+
+    return response;
 };
 
 export { getChatSession, newChatSession, sendMessages, sendAttachment };

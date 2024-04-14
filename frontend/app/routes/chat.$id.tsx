@@ -33,10 +33,10 @@ export async function loader({ params }: LoaderFunctionArgs) {
             title: string;
         };
         if (!result.id) {
-            return redirect(`/app/chat`);
+            return redirect(`/chat`);
         }
 
-        return redirect(`/app/chat/${result.id}`);
+        return redirect(`/chat/${result.id}`);
     }
 
     try {

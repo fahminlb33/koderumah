@@ -18,14 +18,14 @@ export function ChatList({ chatItems }: { chatItems: { title: string; id: string
       <div className="bg-white/80 border mb-2 dark:bg-muted/70 rounded-lg">
         <Button className="w-full" onClick={() => {
           setChatTitle("");
-          navigate("/app/chat/new");
+          navigate("/chat/new");
         }}>New Conversation</Button>
       </div>
       <div className="bg-white/80  flex-1 border dark:bg-muted/70 rounded-lg">
         {chatItems.map((item, index) => (
           <Link
             key={item.id}
-            to={`/app/chat/${item.id}`}
+            to={`/chat/${item.id}`}
             replace
             className="block p-4 hover:bg-muted/90 dark:bg-gray-950/80"
           >

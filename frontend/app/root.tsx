@@ -9,14 +9,14 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-  isRouteErrorResponse,
-  useLoaderData,
-  useRouteError
+  useLoaderData
 } from "@remix-run/react";
+import localforage from "localforage";
 import { PreventFlashOnWrongTheme, Theme, ThemeProvider, useTheme } from "remix-themes";
+import { Toaster } from "./components/ui/sonner";
 import { TooltipProvider } from "./components/ui/tooltip";
 import { themeSessionResolver } from "./sessions.server";
-import localforage from "localforage";
+import Layout from "./components/_layout";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { getTheme } = await themeSessionResolver(request);
@@ -59,7 +59,9 @@ export default function AppWithProviders() {
     <ThemeProvider specifiedTheme={data.theme} themeAction="/action/set-theme">
       <TooltipProvider>
         <App />
+        <Toaster />
       </TooltipProvider>
+
     </ThemeProvider>
   );
 }
@@ -77,7 +79,9 @@ export function App() {
         <Links />
       </head>
       <body>
-        <Outlet />
+        <Layout>
+          <Outlet />
+        </Layout>
         <ScrollRestoration />
         <Scripts />
       </body>
