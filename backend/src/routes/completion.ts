@@ -206,6 +206,6 @@ export class CompletionModule {
 			})),
 		);
 
-		return Response.json({ answer, houses });
+		return Response.json({ answer, imageUrl: uploadedImageUrl, houses });
 	}
 }

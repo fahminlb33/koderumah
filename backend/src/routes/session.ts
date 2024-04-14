@@ -20,6 +20,7 @@ type GetResponseDTO = {
 	role: string;
 	content: string;
 	createdAt: string;
+	imageUrl: string | null;
 	houses: {
 		id: string;
 		price: number;
@@ -99,6 +100,7 @@ export class SessionModule {
 				role: chat.role!,
 				content: chat.content!,
 				createdAt: chat.createdAt!,
+				imageUrl: chat.imageUrl,
 				houses: houses.filter(x => x.chat_citations?.chat_id === chat.id).map(x => ({
 					id: x.houses.id,
 					price: x.houses.price,
